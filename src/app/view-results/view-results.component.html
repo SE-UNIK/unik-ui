@@ -1,0 +1,11 @@
+<div>
+  <h2>Analysis Results</h2>
+  <ul>
+    <li *ngFor="let result of results">
+      {{ result }}
+    </li>
+  </ul>
+  <button (click)="navigateTo('')">Go Home</button>
+  <button (click)="downloadResults()">Download</button>
+</div>
+

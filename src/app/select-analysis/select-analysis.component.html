@@ -1,0 +1,9 @@
+<div>
+  <h2>Select Analysis Technique</h2>
+  <select [(ngModel)]="selectedTechnique">
+    <option *ngFor="let technique of analysisTechniques" [value]="technique">{{ technique }}</option>
+  </select>
+  <button (click)="navigateTo('view-files')">Select More Files</button>
+  <button (click)="analyzeFiles()">Analyze</button>
+</div>
+
