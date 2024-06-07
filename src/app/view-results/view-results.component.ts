@@ -1,37 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { SparkService } from '../services/spark.service';
-import { FileUploadService } from '../services/file-upload.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SparkService } from '../services/spark.service';
 
 @Component({
   selector: 'app-view-results',
   templateUrl: './view-results.component.html',
   styleUrls: ['./view-results.component.css']
 })
-export class ViewResultsComponent implements OnInit {
-  results: any[] = [];
+export class ViewResultsComponent {
+  results: any[] = []; // Define results property
 
-  constructor(private sparkService: SparkService, private fileUploadService: FileUploadService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.sparkService.getAnalysisResults().subscribe(data => {
-      this.results = data;
-    });
-  }
+  constructor(private router: Router, private sparkService: SparkService) { }
 
   navigateTo(path: string): void {
     this.router.navigate([path]);
   }
 
   downloadResults(): void {
-    this.fileUploadService.downloadFile('output-file-name').subscribe(blob => {
+    this.sparkService.downloadResults().subscribe(blob => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'analysis-results.txt';
+      a.download = 'analysis_results.zip'; // Specify the file name
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+    }, error => {
+      console.error('Download error:', error);
+      alert('An error occurred while downloading the results.');
     });
   }
 }

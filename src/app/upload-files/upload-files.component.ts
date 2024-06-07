@@ -21,7 +21,7 @@ export class UploadFilesComponent implements OnInit {
     if (navigation?.extras.state && navigation.extras.state['selectedFiles']) {
       const selectedFileIds = navigation.extras.state['selectedFiles'];
       selectedFileIds.forEach((id: string) => {
-        this.metadataService.getFileById(id).subscribe(file => {
+        this.metadataService.getMetadataById(id).subscribe(file => {
           this.selectedFiles.push(file);
         });
       });

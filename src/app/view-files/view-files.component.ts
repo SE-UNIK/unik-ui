@@ -14,7 +14,7 @@ export class ViewFilesComponent implements OnInit {
   constructor(private metadataService: MetadataService, private router: Router) {}
 
   ngOnInit(): void {
-    this.metadataService.getAllFiles().subscribe(data => {
+    this.metadataService.getAllMetadata().subscribe(data => {
       this.files = data;
     });
   }

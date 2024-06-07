@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FileUploadService {
-  private baseUrl = '/files';
+  private baseUrl = 'http://192.168.0.230:8080/files';
 
   constructor(private http: HttpClient) { }
 
