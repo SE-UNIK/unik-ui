@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileUploadService } from '../services/file-upload.service';
 import { MetadataService } from '../services/metadata.service';
 import { Router } from '@angular/router';
+import { DataTransferService } from '../services/data-transfer.service';
 
 @Component({
   selector: 'app-upload-files',
@@ -9,28 +10,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./upload-files.component.css']
 })
 export class UploadFilesComponent implements OnInit {
+  metadataFiles: any[] = [];
   selectedFiles: any[] = [];
   fileToUpload: File | null = null;
 
-  constructor(private fileUploadService: FileUploadService,
-              private metadataService: MetadataService,
-              private router: Router) {}
+  constructor(
+    private fileUploadService: FileUploadService,
+    private metadataService: MetadataService,
+    private dataTransferService: DataTransferService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state && navigation.extras.state['selectedFiles']) {
-      const selectedFileIds = navigation.extras.state['selectedFiles'];
-      selectedFileIds.forEach((id: string) => {
-        this.metadataService.getMetadataById(id).subscribe(file => {
-          this.selectedFiles.push(file);
-        });
-      });
-    }
+    this.metadataService.getAllMetadata().subscribe(data => {
+      this.metadataFiles = data;
+    });
   }
 
   onFileSelected(event: any): void {
     this.fileToUpload = event.target.files[0];
   }
+  uploadSelectedFilesToHDFS(): void {
+  const ids = this.selectedFiles.map(file => file.id);
+  this.dataTransferService.uploadSelectedFilesToHDFS(ids).subscribe(() => {
+    alert('Selected metadata files uploaded to HDFS successfully');
+  }, error => {
+    console.error('Upload error:', error);
+    alert('An error occurred while uploading the files to HDFS.');
+  });
+}
 
   uploadFile(): void {
     if (this.fileToUpload) {
@@ -45,6 +53,19 @@ export class UploadFilesComponent implements OnInit {
         alert('Title and authors are required.');
       }
     }
+  }
+
+  selectFile(file: any): void {
+    const index = this.selectedFiles.findIndex(selectedFile => selectedFile.id === file.id);
+    if (index > -1) {
+      this.selectedFiles.splice(index, 1);
+    } else {
+      this.selectedFiles.push(file);
+    }
+  }
+
+  isSelected(file: any): boolean {
+    return this.selectedFiles.some(selectedFile => selectedFile.id === file.id);
   }
 
   navigateTo(path: string): void {

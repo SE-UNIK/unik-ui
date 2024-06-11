@@ -1,11 +1,21 @@
 <div>
-  <h2>All Files in MongoDB</h2>
+  <h2>All Files in HDFS</h2>
   <ul>
-    <li *ngFor="let file of files">
+    <li *ngFor="let file of files" (click)="showFileInfo(file)">
       {{ file.title }}
-      <button (click)="selectFile(file.id)">Select</button>
     </li>
   </ul>
-  <button (click)="navigateTo('upload-files')">Upload Your Files</button>
+
+  <div *ngIf="selectedFile">
+    <h3>File Info</h3>
+    <p><strong>Title:</strong> {{ selectedFile.title }}</p>
+    <p><strong>File Name:</strong> {{ selectedFile.fileName }}</p>
+    <p><strong>File Path:</strong> {{ selectedFile.filePath }}</p>
+    <p><strong>Authors:</strong> {{ selectedFile.authors.join(', ') }}</p>
+    <p><strong>File Size:</strong> {{ selectedFile.fileSize }} bytes</p>
+    <button (click)="downloadFile(selectedFile.filePath)">Download</button>
+  </div>
+
+  <button (click)="navigateToUpload()">Upload Your Files</button>
 </div>
 

@@ -1,13 +1,25 @@
 <div>
-  <h2>Upload Your Files</h2>
+  <h2>Upload Files</h2>
+  <input type="file" (change)="onFileSelected($event)">
+  <button (click)="uploadFile()">Upload</button>
+
+  <h3>All Files in Metadata</h3>
+  <ul>
+    <li *ngFor="let file of metadataFiles" (click)="selectFile(file)" [class.selected]="isSelected(file)">
+      {{ file.title }}
+    </li>
+  </ul>
+
+  <button (click)="uploadSelectedFilesToHDFS()">Upload Selected Files to HDFS</button>
+
+  <h3>Selected Files</h3>
   <ul>
     <li *ngFor="let file of selectedFiles">
       {{ file.title }}
     </li>
   </ul>
-  <input type="file" (change)="onFileSelected($event)">
-  <button (click)="uploadFile()">Upload</button>
-  <button (click)="navigateTo('view-files')">Select More Files</button>
+
+  <button (click)="navigateTo('view-files')">View HDFS Files</button>
   <button (click)="navigateTo('select-analysis')">Analyze Files</button>
 </div>
 
