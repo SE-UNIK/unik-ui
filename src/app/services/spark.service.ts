@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SparkService {
-  private baseUrl = 'http://192.168.0.230:8080/spark';
+  private baseUrl = 'http://localhost:8080/spark';
 
   constructor(private http: HttpClient) { }
 

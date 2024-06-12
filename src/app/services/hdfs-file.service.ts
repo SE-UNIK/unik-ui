@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class HdfsFileService {
 
-  private baseUrl = 'http://192.168.0.230:8080/api/file'; // Adjust this URL if needed
+  private baseUrl = 'http://localhost:8080/api/file'; // Adjust this URL if needed
 
   constructor(private http: HttpClient) { }
 
