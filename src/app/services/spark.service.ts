@@ -11,7 +11,21 @@ export class SparkService {
   constructor(private http: HttpClient) { }
 
   submitSparkJob(sparkModel: any, algorithmName: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/submit`, sparkModel, { params: { algorithmName } });
+    let url = '';
+    switch (algorithmName) {
+      case 'wordcount':
+        url = `${this.baseUrl}/submit/wordcount`;
+        break;
+      case 'kmeans':
+        url = `${this.baseUrl}/submit/kmeans`;
+        break;
+      case 'tfidf':
+        url = `${this.baseUrl}/submit/tfidf`;
+        break;
+      default:
+        throw new Error('Invalid algorithm name');
+    }
+    return this.http.post(url, sparkModel);
   }
 
   downloadResults(): Observable<Blob> {

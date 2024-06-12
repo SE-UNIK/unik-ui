@@ -9,7 +9,7 @@ import { HdfsFileService } from '../services/hdfs-file.service';
   styleUrls: ['./select-analysis.component.css']
 })
 export class SelectAnalysisComponent implements OnInit {
-  analysisTechniques = ['wordcount', 'kmeans', 'lda'];
+  analysisTechniques = ['wordcount', 'kmeans', 'tfidf'];
   selectedTechnique: string | null = null;
   hdfsFiles: any[] = [];
   selectedFiles: string[] = [];
@@ -31,6 +31,7 @@ export class SelectAnalysisComponent implements OnInit {
     } else {
       this.selectedFiles.push(filePath);
     }
+    console.log('Selected files:', this.selectedFiles);
   }
 
   isSelected(filePath: string): boolean {
@@ -39,7 +40,8 @@ export class SelectAnalysisComponent implements OnInit {
 
   analyzeFiles(): void {
     if (this.selectedTechnique && this.selectedFiles.length > 0) {
-      const fileNames = this.selectedFiles.map(filePath => filePath.split('/').pop()); // Extract file names
+      const fileNames: string[] = this.selectedFiles.map(filePath => filePath.split('/').pop() || ''); // Extract file names
+      console.log('Files to be sent for analysis:', fileNames);
       const sparkModel = {
         inputFileName: fileNames,
       };
