@@ -1,9 +1,15 @@
-<div>
-  <h2>Select Analysis Technique</h2>
-  <select [(ngModel)]="selectedTechnique">
-    <option *ngFor="let technique of analysisTechniques" [value]="technique">{{ technique }}</option>
-  </select>
-  <button (click)="navigateTo('view-files')">Select More Files</button>
-  <button (click)="analyzeFiles()">Analyze</button>
+<div class="mt-5">
+  <h2 class="mb-4">Select Analysis Technique</h2>
+  <div class="mb-3">
+    <select [(ngModel)]="selectedTechnique" class="form-select">
+      <option *ngFor="let technique of analysisTechniques" [value]="technique">{{ technique }}</option>
+    </select>
+  </div>
+  <div class="d-flex justify-content-between">
+    <button (click)="navigateTo('view-files')" class="btn btn-outline-primary">Select More Files</button>
+    <button (click)="analyzeFiles()" class="btn btn-outline-success">Analyze</button>
+  </div>
+
+  <button (click)="navigateTo('')" class="btn btn-secondary mt-3">Back to Home</button>
 </div>
 

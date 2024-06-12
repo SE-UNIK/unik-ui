@@ -1,0 +1,18 @@
+.container {
+  padding: 2rem 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.lead {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
+.btn-group {
+  margin-top: 20px;
+}
+

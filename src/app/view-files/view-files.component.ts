@@ -32,6 +32,7 @@ export class ViewFilesComponent implements OnInit {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      window.URL.revokeObjectURL(url); // Clean up
     }, error => {
       console.error('Download error:', error);
       alert('An error occurred while downloading the file.');
@@ -44,6 +45,10 @@ export class ViewFilesComponent implements OnInit {
 
   navigateToUpload(): void {
     this.router.navigate(['upload-files'], { state: { selectedFiles: this.files.map(file => file.id) } });
+  }
+
+  navigateToHome(): void {
+    this.router.navigate(['']);
   }
 }
 
