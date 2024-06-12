@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class HdfsFileService {
 
-  private baseUrl = 'http://192.168.0.230:8080/api/file'; // Adjust this URL if needed
+  private baseUrl = 'http://localhost:8080/api/file'; // Adjust this URL if needed
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +20,8 @@ export class HdfsFileService {
   }
 
   downloadFile(filePath: string): Observable<Blob> {
-    return this.http.get(`http://192.168.0.230:8080/files/download`, { params: { path: filePath }, responseType: 'blob' });
+    return this.http.get(`http://192.168.0.230:8080/files/download`,
+      { params: { path: filePath }, responseType: 'blob' });
   }
 }
 

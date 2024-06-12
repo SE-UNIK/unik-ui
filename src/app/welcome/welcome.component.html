@@ -1,7 +1,31 @@
-<div>
-  <h1>Welcome to UNiK</h1>
-  <button routerLink="/upload-files">Upload Your Files</button>
-  <button routerLink="/view-files">View Files</button>
-  <button routerLink="/select-analysis">View Analysis</button>
-</div>
+<main>
+  <section class="hero">
+    <h2>Welcome to UNiK</h2>
+    <p>Discover the power of data analysis for Korean Unification research</p>
+  </section>
+  <section class="features">
+    <h2>Key Features</h2>
+    <div class="feature">
+      <i class="fas fa-database"></i>
+      <h3>Comprehensive Database</h3>
+      <p>Access a vast collection of Korean Unification files</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-upload"></i>
+      <h3>User-Friendly Upload</h3>
+      <p>Upload your own files for analysis</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-chart-bar"></i>
+      <h3>Powerful Analysis Tools</h3>
+      <p>Utilize Hadoop and Spark frameworks for in-depth analysis</p>
+    </div>
+  </section>
+
+  <div class="button-container">
+    <button class="button" routerLink="/view-files">View Files</button>
+    <button class="button" routerLink="/upload-files">Upload Your Files</button>
+    <button class="button" routerLink="/select-analysis">View Analysis</button>
+  </div>
+</main>
 

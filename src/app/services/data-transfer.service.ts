@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class DataTransferService {
 
-  private baseUrl = 'http://192.168.0.230:8080/api/data-transfer'; // Adjust this URL if needed
+  private baseUrl = 'http://localhost:8080/api/data-transfer'; // Adjust this URL if needed
 
   constructor(private http: HttpClient) { }
 
