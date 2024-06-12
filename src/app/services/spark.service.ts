@@ -10,8 +10,8 @@ export class SparkService {
 
   constructor(private http: HttpClient) { }
 
-  submitSparkJob(sparkModel: any, fileName: string, hdfsFilePath: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/submit`, { sparkModel, fileName, hdfsFilePath });
+  submitSparkJob(sparkModel: any, algorithmName: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/submit`, sparkModel, { params: { algorithmName } });
   }
 
   downloadResults(): Observable<Blob> {
