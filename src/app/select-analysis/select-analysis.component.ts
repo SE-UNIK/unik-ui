@@ -39,9 +39,9 @@ export class SelectAnalysisComponent implements OnInit {
 
   analyzeFiles(): void {
     if (this.selectedTechnique && this.selectedFiles.length > 0) {
+      const fileNames = this.selectedFiles.map(filePath => filePath.split('/').pop()); // Extract file names
       const sparkModel = {
-        inputFileName: this.selectedFiles,
-        // other properties as needed
+        inputFileName: fileNames,
       };
       this.sparkService.submitSparkJob(sparkModel, this.selectedTechnique).subscribe(() => {
         this.router.navigate(['view-results']);
