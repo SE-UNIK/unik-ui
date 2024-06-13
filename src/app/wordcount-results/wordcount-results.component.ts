@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SparkService } from '../services/spark.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-wordcount-results',
   templateUrl: './wordcount-results.component.html',
@@ -41,6 +40,7 @@ export class WordcountResultsComponent implements OnInit {
       alert('An error occurred while downloading the file.');
     });
   }
+
   navigateToAnalysis(): void {
     this.router.navigate(['select-analysis']);
   }

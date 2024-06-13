@@ -27,6 +27,10 @@ export class HdfsFileService {
     return this.http.get(`http://192.168.0.230:8080/files/download`,
       { params: { path: filePath }, responseType: 'blob' });
   }
+  readFile(filePath: string): Observable<string> {
+    return this.http.get(`${this.baseUrl}/read`, { params: { path: filePath }, responseType: 'text' });
+  }
+  
 }
 
 
