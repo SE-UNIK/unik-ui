@@ -56,7 +56,7 @@ export class SelectAnalysisComponent implements OnInit {
   }
 
   viewResults(): void {
-    this.router.navigate(['view-results']);
+    this.router.navigate(['wordcount-results']);
   }
 }
 
