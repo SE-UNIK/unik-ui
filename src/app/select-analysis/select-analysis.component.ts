@@ -13,6 +13,7 @@ export class SelectAnalysisComponent implements OnInit {
   selectedTechnique: string | null = null;
   hdfsFiles: any[] = [];
   selectedFiles: string[] = [];
+  analysisComplete: boolean = false;
 
   constructor(private sparkService: SparkService, private hdfsFileService: HdfsFileService, private router: Router) {}
 
@@ -46,11 +47,16 @@ export class SelectAnalysisComponent implements OnInit {
         inputFileName: fileNames,
       };
       this.sparkService.submitSparkJob(sparkModel, this.selectedTechnique).subscribe(() => {
-        this.router.navigate(['view-results']);
+        this.analysisComplete = true;
+        alert('Analysis completed');
       });
     } else {
       alert('Please select an analysis technique and files');
     }
+  }
+
+  viewResults(): void {
+    this.router.navigate(['view-results']);
   }
 }
 

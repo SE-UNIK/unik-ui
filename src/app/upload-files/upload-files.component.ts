@@ -13,6 +13,9 @@ export class UploadFilesComponent implements OnInit {
   metadataFiles: any[] = [];
   selectedFiles: any[] = [];
   fileToUpload: File | null = null;
+  fileTitle: string = '';
+  fileAuthors: string[] = [];
+  showModal: boolean = false;
 
   constructor(
     private fileUploadService: FileUploadService,
@@ -29,29 +32,37 @@ export class UploadFilesComponent implements OnInit {
 
   onFileSelected(event: any): void {
     this.fileToUpload = event.target.files[0];
+    this.showModal = true;
   }
-  uploadSelectedFilesToHDFS(): void {
-  const ids = this.selectedFiles.map(file => file.id);
-  this.dataTransferService.uploadSelectedFilesToHDFS(ids).subscribe(() => {
-    alert('Selected metadata files uploaded to HDFS successfully');
-  }, error => {
-    console.error('Upload error:', error);
-    alert('An error occurred while uploading the files to HDFS.');
-  });
-}
+
+  closeModal(): void {
+    this.showModal = false;
+    this.fileToUpload = null;
+    this.fileTitle = '';
+    this.fileAuthors = [];
+  }
+
+  addAuthor(author: string): void {
+    if (author && !this.fileAuthors.includes(author)) {
+      this.fileAuthors.push(author);
+    }
+  }
+
+  removeAuthor(author: string): void {
+    this.fileAuthors = this.fileAuthors.filter(a => a !== author);
+  }
 
   uploadFile(): void {
-    if (this.fileToUpload) {
-      const title = prompt('Enter the title of the file') || '';
-      const authorsPrompt = prompt('Enter the authors of the file (comma-separated)');
-      const authors = authorsPrompt ? authorsPrompt.split(',') : [];
-      if (title && authors.length > 0) {
-        this.fileUploadService.uploadFile(this.fileToUpload, title, authors).subscribe(() => {
-          alert('File uploaded successfully');
-        });
-      } else {
-        alert('Title and authors are required.');
-      }
+    if (this.fileToUpload && this.fileTitle && this.fileAuthors.length > 0) {
+      this.fileUploadService.uploadFile(this.fileToUpload, this.fileTitle, this.fileAuthors).subscribe(() => {
+        alert('File uploaded successfully');
+        this.closeModal();
+      }, error => {
+        console.error('Upload error:', error);
+        alert('An error occurred while uploading the file.');
+      });
+    } else {
+      alert('Title and at least one author are required.');
     }
   }
 
@@ -70,6 +81,16 @@ export class UploadFilesComponent implements OnInit {
 
   navigateTo(path: string): void {
     this.router.navigate([path], { state: { selectedFiles: this.selectedFiles.map(file => file.id) } });
+  }
+
+  uploadSelectedFilesToHDFS(): void {
+    const ids = this.selectedFiles.map(file => file.id);
+    this.dataTransferService.uploadSelectedFilesToHDFS(ids).subscribe(() => {
+      alert('Selected metadata files uploaded to HDFS successfully');
+    }, error => {
+      console.error('Upload error:', error);
+      alert('An error occurred while uploading the files to HDFS.');
+    });
   }
 }
 

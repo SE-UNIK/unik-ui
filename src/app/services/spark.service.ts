@@ -32,5 +32,8 @@ export class SparkService {
     const headers = new HttpHeaders({ 'Accept': 'application/octet-stream' });
     return this.http.get(`${this.baseUrl}/results`, { headers, responseType: 'blob' });
   }
+  getWordCountResults(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/results/wordcount`);
+  }
 }
 

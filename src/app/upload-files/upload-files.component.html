@@ -2,7 +2,40 @@
   <h2 class="mb-4">Upload Files</h2>
   <div class="mb-3">
     <input type="file" (change)="onFileSelected($event)" class="form-control">
-    <button (click)="uploadFile()" class="btn btn-primary mt-2">Upload</button>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="showModal" class="modal" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5);">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">File Information</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="fileTitle" class="form-label">Title</label>
+            <input type="text" id="fileTitle" [(ngModel)]="fileTitle" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="fileAuthors" class="form-label">Authors</label>
+            <div class="input-group">
+              <input type="text" #authorInput id="fileAuthors" class="form-control">
+              <button type="button" class="btn btn-outline-secondary" (click)="addAuthor(authorInput.value); authorInput.value=''">Add Author</button>
+            </div>
+            <div *ngIf="fileAuthors.length > 0" class="mt-2">
+              <span class="badge bg-primary me-1" *ngFor="let author of fileAuthors">
+                {{ author }} <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="removeAuthor(author)"></button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="uploadFile()">Upload</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <h3 class="mt-4">All Files in Metadata</h3>
