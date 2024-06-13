@@ -89,7 +89,7 @@ export class UploadFilesComponent implements OnInit {
       alert('Selected metadata files uploaded to HDFS successfully');
     }, error => {
       console.error('Upload error:', error);
-      alert('An error occurred while uploading the files to HDFS.');
+      // alert('An error occurred while uploading the files to HDFS.');
     });
   }
 }

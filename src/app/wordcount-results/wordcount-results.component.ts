@@ -45,3 +45,4 @@ export class WordcountResultsComponent implements OnInit {
     this.router.navigate(['select-analysis']);
   }
 }
+
