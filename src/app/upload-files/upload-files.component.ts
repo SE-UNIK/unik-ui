@@ -51,18 +51,24 @@ export class UploadFilesComponent implements OnInit {
   removeAuthor(author: string): void {
     this.fileAuthors = this.fileAuthors.filter(a => a !== author);
   }
-
-  uploadFile(): void {
-    if (this.fileToUpload && this.fileTitle && this.fileAuthors.length > 0) {
-      this.fileUploadService.uploadFile(this.fileToUpload, this.fileTitle, this.fileAuthors).subscribe(() => {
-        alert('File uploaded successfully');
-        this.closeModal();
-      }, error => {
-        console.error('Upload error:', error);
-        alert('An error occurred while uploading the file.');
-      });
-    } else {
-      alert('Title and at least one author are required.');
+    uploadFile(): void {
+    if (this.fileToUpload) {
+      const title = prompt('Enter the title of the file') || '';
+      const authorsPrompt = prompt('Enter the authors of the file (comma-separated)');
+      const authors = authorsPrompt ? authorsPrompt.split(',') : [];
+      if (title && authors.length > 0) {
+        this.fileUploadService.uploadFile(this.fileToUpload, title, authors).subscribe(
+          response => {
+            alert(response.message); // Handle success
+          },
+          error => {
+            console.error('Upload error:', error);
+            alert('An error occurred while uploading the file.');
+          }
+        );
+      } else {
+        alert('Title and authors are required.');
+      }
     }
   }
 

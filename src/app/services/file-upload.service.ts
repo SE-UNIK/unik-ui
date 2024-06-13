@@ -14,13 +14,9 @@ export class FileUploadService {
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('title', title);
-    formData.append('authors', JSON.stringify(authors));
+    formData.append('authors', JSON.stringify(authors)); // Convert authors array to JSON string
 
-    return this.http.post(`${this.baseUrl}/upload`, formData, {
-      headers: new HttpHeaders({
-        'enctype': 'multipart/form-data'
-      })
-    });
+    return this.http.post(`${this.baseUrl}/upload`, formData);
   }
 
   downloadFile(fileName: string): Observable<Blob> {
