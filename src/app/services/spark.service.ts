@@ -11,29 +11,16 @@ export class SparkService {
   constructor(private http: HttpClient) { }
 
   submitSparkJob(sparkModel: any, algorithmName: string): Observable<any> {
-    let url = '';
-    switch (algorithmName) {
-      case 'wordcount':
-        url = `${this.baseUrl}/submit/wordcount`;
-        break;
-      case 'kmeans':
-        url = `${this.baseUrl}/submit/kmeans`;
-        break;
-      case 'tfidf':
-        url = `${this.baseUrl}/submit/tfidf`;
-        break;
-      default:
-        throw new Error('Invalid algorithm name');
-    }
-    return this.http.post(url, sparkModel);
+    return this.http.post(`${this.baseUrl}/submit/${algorithmName}`, sparkModel);
   }
 
   downloadResults(): Observable<Blob> {
     const headers = new HttpHeaders({ 'Accept': 'application/octet-stream' });
     return this.http.get(`${this.baseUrl}/results`, { headers, responseType: 'blob' });
   }
-  getWordCountResults(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/results/wordcount`);
+
+  getWordCountResults(): Observable<string> {
+    return this.http.get(`${this.baseUrl}/results/wordcount`, { responseType: 'text' });
   }
 }
 

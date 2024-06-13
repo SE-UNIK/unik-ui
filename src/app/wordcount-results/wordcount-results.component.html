@@ -1,9 +1,7 @@
-<div class="container mt-5">
-  <h2>Word Count Results</h2>
-  <ul class="list-group">
-    <li *ngFor="let result of results" class="list-group-item">
-      {{ result.word }}: {{ result.count }}
-    </li>
-  </ul>
+<div class="container mt-4">
+  <h2>Wordcount Results</h2>
+  <pre class="bg-light p-3">{{ wordcountResults }}</pre>
+  <button class="btn btn-primary mt-3" (click)="downloadWordcountResults()">Download Results</button>
+  <button class="btn btn-secondary mt-3" (click)="navigateToAnalysis()">Back to Analysis</button>
 </div>
 
