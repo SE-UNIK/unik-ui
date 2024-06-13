@@ -18,8 +18,9 @@ export class WordcountResultsComponent implements OnInit {
 
   fetchWordcountResults(): void {
     this.sparkService.getWordCountResults().subscribe(data => {
-      console.log('Fetched wordcount results:', data);
-      this.wordcountResults = data;
+      console.log('Fetched wordcount results:', data);  // Log the results to verify
+      // Replace newlines with <br> tags for HTML display
+      this.wordcountResults = data.replace(/\n/g, '<br>');
     }, error => {
       console.error('Error fetching wordcount results:', error);
       alert('An error occurred while fetching the wordcount results.');
