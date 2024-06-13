@@ -11,16 +11,16 @@ export class SparkService {
   constructor(private http: HttpClient) { }
 
   submitSparkJob(sparkModel: any, algorithmName: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/submit`, sparkModel, { params: { algorithmName } });
-  }
-
-  getWordCountResults(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/results/wordcount`, { responseType: 'text' });
+    return this.http.post(`${this.baseUrl}/submit/${algorithmName}`, sparkModel);
   }
 
   downloadResults(): Observable<Blob> {
     const headers = new HttpHeaders({ 'Accept': 'application/octet-stream' });
-    return this.http.get(`${this.baseUrl}/results/wordcount`, { headers, responseType: 'blob' });
+    return this.http.get(`${this.baseUrl}/results`, { headers, responseType: 'blob' });
+  }
+
+  getWordCountResults(): Observable<string> {
+    return this.http.get(`${this.baseUrl}/results/wordcount`, { responseType: 'text' });
   }
 }
 
